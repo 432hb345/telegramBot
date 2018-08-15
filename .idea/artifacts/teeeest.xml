@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact name="teeeest">
+    <output-path>$PROJECT_DIR$/out/artifacts/teeeest</output-path>
+    <root id="root">
+      <element id="file-copy" path="C:/telegrambots-4.0.1-jar-with-dependencies.jar" />
+      <element id="archive" name="telegramBot.jar">
+        <element id="module-output" name="telegramBot" />
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
