@@ -1,19 +1,16 @@
-import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 
 public class Main {
     public static void main(String[] args) {
-        ApiContextInitializer.init();
-
-        TelegramBotsApi botsApi = new TelegramBotsApi();
-
         try {
-            botsApi.registerBot(new BeznazwyBot());
+            TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
+            botsApi.registerBot(new KaczmarskiBot());
+            System.out.println("KaczmarskiBot successfully started!");
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
-        System.out.println("BeznazwyBot successfully started!");
     }
 }
