@@ -40,6 +40,11 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 
+# Generated directories
+META-INF/
+src/main/resources/META-INF/
+src/META-INF/
+
 # Eclipse
 .classpath
 .project

@@ -1,4 +1,0 @@
-Manifest-Version: 1.0
-Class-Path: telegrambots-4.0.1-jar-with-dependencies.jar
-Main-Class: Main
-
