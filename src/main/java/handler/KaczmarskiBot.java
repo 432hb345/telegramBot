@@ -15,7 +15,6 @@ public class KaczmarskiBot extends TelegramLongPollingBot {
     private final MessageHandler messageHandler = new MessageHandler();
     private static final String BOT_TOKEN = "613401148:AAGznQ8Q4tOb4ee9OgadOOFU2XohvfGgu7c";
     private static final String BOT_USERNAME = "handler.KaczmarskiBot";
-    private static final String TELEGRAM_PHOTO_ID = "AgADAgAD6qcxGwnPsUgOp7-MvnQ8GecvSw0ABGvTl7ObQNPNX7UEAAEC";
 
     public KaczmarskiBot() {
         super(BOT_TOKEN);

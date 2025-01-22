@@ -27,7 +27,7 @@ public class CommandStorage {
         String action = commands.getProperty(command);
 
         if (action != null) {
-            String[] parts = action.split(":", 2); // Split into type and data
+            String[] parts = action.split(":", 2);
             String type = parts[0];
             String data = parts.length > 1 ? parts[1] : "";
 

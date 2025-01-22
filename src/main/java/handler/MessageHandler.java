@@ -9,7 +9,6 @@ import java.util.*;
 public class MessageHandler {
     private final CommandStorage commandStorage;
 
-
     public MessageHandler() {
         this.commandStorage = new CommandStorage();
     }
@@ -24,7 +23,6 @@ public class MessageHandler {
             bot.handleError(e);
         }
     }
-
 
     public void handlePhotoMessage(KaczmarskiBot bot, Update update) {
         long chatId = update.getMessage().getChatId();
@@ -46,10 +44,5 @@ public class MessageHandler {
         } catch (TelegramApiException e) {
             bot.handleError(e);
         }
-    }
-
-    @FunctionalInterface
-    interface CommandAction {
-        public void execute(KaczmarskiBot bot, long chatId) throws TelegramApiException;
     }
 }
