@@ -27,14 +27,18 @@ public class CommandStorage {
         String action = commands.getProperty(command);
 
         if (action != null) {
-            String[] parts = action.split(":", 2);
-            String type = parts[0];
-            String data = parts.length > 1 ? parts[1] : "";
+            String[] actions = action.split(";");
 
-            switch (type) {
-                case "TEXT" -> bot.sendTextMessage(chatId, data);
-                case "PHOTO" -> bot.sendPhoto(chatId, data, "Here's your photo!");
-                default -> bot.sendTextMessage(chatId, "Unknown command type");
+            for (String singleAction : actions) {
+                String[] parts = singleAction.split(":", 2);
+                String type = parts[0];
+                String data = parts.length > 1 ? parts[1] : "";
+
+                switch (type) {
+                    case "TEXT" -> bot.sendTextMessage(chatId, data);
+                    case "PHOTO" -> bot.sendPhoto(chatId, data, "Here's your photo!");
+                    default -> bot.sendTextMessage(chatId, "Unknown command type");
+                }
             }
         } else {
             bot.sendTextMessage(chatId, "Unknown command");
