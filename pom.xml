@@ -25,5 +25,10 @@
             <artifactId>telegrambots</artifactId>
             <version>6.9.7.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.theokanning.openai-gpt3-java</groupId>
+            <artifactId>service</artifactId>
+            <version>0.18.2</version>
+        </dependency>
     </dependencies>
 </project>

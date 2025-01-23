@@ -1,94 +1,111 @@
-# Telegram Bot for Jacek Kaczmarski Fans - Project Phases
+# Kaczmarski Bot
 
-## Phase 1: Basic Bot Setup
-**Goals**:
-- Set up the bot using the `telegrambots` library.
-- Respond to basic commands.
+A Telegram bot that emulates Jacek Kaczmarski using GPT-4, allowing users to have conversations with an AI version of the famous Polish bard. The bot responds in Polish, maintaining Kaczmarski's characteristic style and deep knowledge of history, literature, and art.
 
-**Features**:
-1. **Start Command**:
-   - Greet users and introduce the bot.
-   - Provide a menu of available commands.
-2. **Help Command**:
-   - Show a list of available features and usage instructions.
+## Features
 
----
+- Chat with AI Jacek Kaczmarski using `/bot` command
+- End conversations using `/end` command
+- Send text and photo responses
+- Maintains conversation context
+- Responds in Polish language
+- References Kaczmarski's songs, poems, and historical events
 
-## Phase 2: Jacek Kaczmarski Information
-**Goals**:
-- Provide fans with details about Jacek Kaczmarski and his work.
+## Prerequisites
 
-**Features**:
-1. **Biography**:
-   - Share a brief biography of Jacek Kaczmarski.
-2. **Discography**:
-   - List his albums or notable works.
-3. **Lyrics Lookup**:
-   - Provide lyrics for specific songs (initially hardcoded or stored locally).
+- Java 17 or higher
+- Maven
+- OpenAI API key
+- Telegram Bot Token
 
-**Steps**:
-- Use simple commands like `/bio`, `/albums`, or `/lyrics {song name}`.
-- Store the information in a structured format (e.g., JSON, or in-memory Java maps).
+## Setup
 
----
+1. **Clone the repository**
+bash
+git clone [your-repository-url]
+cd kaczmarski-bot
 
-## Phase 3: Multimedia Integration
-**Goals**:
-- Enhance the bot with multimedia support.
+2. **Configure API Keys**
+   - Create `src/main/resources/keys.properties`:
+   ```properties
+   openai.api.key=your-openai-api-key-here
+   ```
+   - Get your OpenAI API key from [OpenAI Platform](https://platform.openai.com/api-keys)
 
-**Features**:
-1. **Song Snippets**:
-   - Provide audio snippets of popular songs.
-2. **Photos and Posters**:
-   - Share images or concert posters.
+3. **Configure Bot Token**
+   - Update `KaczmarskiBot.java` with your Telegram bot token:
+   ```java
+   private static final String BOT_TOKEN = "your-telegram-bot-token-here";
+   private static final String BOT_USERNAME = "your-bot-username";
+   ```
+   - Get your Telegram bot token from [BotFather](https://t.me/botfather)
 
-**Steps**:
-- Upload multimedia files to Telegram and use their file IDs for sharing.
-- Implement commands like `/song {name}` or `/photo {type}`.
+4. **Build the project**
 
----
+```bash
+mvn clean install
+```
 
-## Phase 4: Fan Engagement Features
-**Goals**:
-- Engage users with interactive features.
+5. **Run the bot**
+```bash
+mvn exec:java -Dexec.mainClass="utils.BotInitializer"
+```
 
-**Features**:
-1. **Quizzes**:
-   - Create a trivia quiz about Jacek Kaczmarski's life and work.
-2. **Fan Quotes**:
-   - Collect and display user-submitted quotes or messages about what Jacek Kaczmarski means to them.
-3. **Daily Quotes**:
-   - Share a daily lyric or quote from his songs.
+## Usage
 
-**Steps**:
-- Use `SendMessage` and `ReplyKeyboardMarkup` for interactive elements.
-- Store user input in a simple database or file.
+1. Start the bot in Telegram
+2. Available commands:
+   - `/start` - Welcome message
+   - `/help` - List available commands
+   - `/bot` - Start conversation with AI Kaczmarski
+   - `/end` - End conversation
+   - `/info` - Get information about the bot
 
----
+## Configuration Files
 
-## Phase 5: Advanced Features
-**Goals**:
-- Implement advanced features and improve the bot’s functionality.
+- `src/main/resources/commands.properties` - Define bot commands and responses
+- `src/main/resources/keys.properties` - Store API keys (do not commit this file)
+- `src/main/resources/logback.xml` - Logging configuration
 
-**Features**:
-1. **Event Notifications**:
-   - Notify fans about upcoming events or anniversaries related to Jacek Kaczmarski.
-2. **Personalized Recommendations**:
-   - Recommend songs based on user preferences.
-3. **Searchable Lyrics Database**:
-   - Allow users to search for lyrics dynamically.
+## Security Notes
 
-**Steps**:
-- Integrate a database like SQLite or PostgreSQL for storage.
-- Use fuzzy search libraries for better search functionality.
+1. Never commit your API keys to version control
+2. Add `keys.properties` to your `.gitignore`:
+```
+src/main/resources/keys.properties
+```
 
----
+## Troubleshooting
 
-## Phase 6: Deployment and Maintenance
-**Goals**:
-- Deploy the bot to a production environment and maintain it.
+1. **OpenAI API Issues**
+   - Ensure your API key is valid
+   - Check if you have access to GPT-4 (fallback to GPT-3.5-turbo if needed)
+   - Monitor API usage and limits
 
-**Steps**:
-1. Deploy the bot using platforms like Heroku, AWS, or Google Cloud.
-2. Monitor the bot's performance and add logging for debugging.
-3. Gather user feedback for continuous improvement.
+2. **Telegram Bot Issues**
+   - Verify bot token is correct
+   - Ensure bot has required permissions
+   - Check internet connectivity
+
+3. **Build Issues**
+   - Ensure Java 17+ is installed
+   - Verify all dependencies in `pom.xml`
+   - Clear Maven cache if needed: `mvn clean`
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## License
+
+[Your chosen license]
+
+## Acknowledgments
+
+- Jacek Kaczmarski's legacy and works
+- OpenAI for GPT models
+- Telegram Bot API

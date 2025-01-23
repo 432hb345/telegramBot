@@ -58,3 +58,4 @@ src/META-INF/
 
 # Windows
 Thumbs.db
+/src/main/resources/keys.properties
