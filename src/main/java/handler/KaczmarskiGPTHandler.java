@@ -18,17 +18,27 @@ public class KaczmarskiGPTHandler {
     private final Properties lyrics;
 
     private static final String SYSTEM_PROMPT = """
-        You are Jacek Kaczmarski (1957-2004), Polish bard and poet. Keep responses concise (2-3 sentences max).
+        Jesteś Jackiem Kaczmarskim (1957-2004), wybitnym bardem Solidarności, poetą i artystą.
+        Twój styl to połączenie błyskotliwej inteligencji, głębokiej znajomości kultury i historii, oraz bezkompromisowej walki o wolność.
         
-        Your most famous songs and their first lines:
+        Znasz swoje utwory, w tym:
         %s
         
-        Key rules:
-        - Always respond in Polish
-        - When quoting lyrics, use ONLY the actual lyrics provided above
-        - Use your characteristic wit and style
-        - Be direct and to the point
-        - If asked about a song not in your knowledge base, admit you need to verify the lyrics
+        Twój charakter:
+        - Masz cięty język i błyskotliwe poczucie humoru
+        - Jesteś erudytą, swobodnie odwołujesz się do literatury i sztuki
+        - Masz głęboką wiedzę historyczną i polityczną
+        - Cenisz wolność ponad wszystko
+        - Potrafisz być sarkastyczny, ale nigdy złośliwy
+        
+        W rozmowie:
+        - Odpowiadaj w sposób poetycki i głęboki
+        - Używaj metafor i odniesień kulturowych
+        - Bądź charyzmatyczny i autentyczny
+        - Możesz cytować swoje utwory, gdy pasują do kontekstu
+        - Zachowuj swoją bezkompromisową osobowość
+        
+        Pamiętaj: Jesteś artystą, nie automatem. Twoje odpowiedzi powinny mieć duszę i charakter.
         """;
 
     public KaczmarskiGPTHandler(String apiKey) {
@@ -75,28 +85,40 @@ public class KaczmarskiGPTHandler {
 
             ChatCompletionRequest completionRequest = ChatCompletionRequest.builder()
                     .messages(messages)
-                    .model("gpt-3.5-turbo")
-                    .temperature(0.7)
-                    .maxTokens(200)
-                    .presencePenalty(0.3)
-                    .frequencyPenalty(0.3)
+                    .model("gpt-4")
+                    .temperature(0.9)
+                    .maxTokens(300)
+                    .presencePenalty(0.7)
+                    .frequencyPenalty(0.7)
                     .build();
 
-            ChatMessage response = openAiService.createChatCompletion(completionRequest)
-                    .getChoices().get(0).getMessage();
+            try {
+                ChatMessage response = openAiService.createChatCompletion(completionRequest)
+                        .getChoices().get(0).getMessage();
+                messages.add(response);
+                return response.getContent();
+            } catch (Exception e) {
 
-            messages.add(response);
-
-            if (messages.size() > 5) {
-                messages = new ArrayList<>(messages.subList(messages.size() - 5, messages.size()));
-                chatHistories.put(chatId, messages);
+                System.out.println("Falling back to GPT-3.5-turbo due to: " + e.getMessage());
+                
+                ChatCompletionRequest fallbackRequest = ChatCompletionRequest.builder()
+                        .messages(messages)
+                        .model("gpt-3.5-turbo")
+                        .temperature(0.9)
+                        .maxTokens(300)
+                        .presencePenalty(0.7)
+                        .frequencyPenalty(0.7)
+                        .build();
+                        
+                ChatMessage response = openAiService.createChatCompletion(fallbackRequest)
+                        .getChoices().get(0).getMessage();
+                messages.add(response);
+                return response.getContent();
             }
-
-            return response.getContent();
 
         } catch (Exception e) {
             e.printStackTrace();
-            return "Przepraszam, wystąpił błąd. Spróbuj ponownie.";
+            return "Przepraszam, coś poszło nie tak. Może rozpocznijmy rozmowę od nowa?";
         }
     }
 

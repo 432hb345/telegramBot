@@ -18,12 +18,9 @@ public class CommandStorage {
     public CommandStorage() {
         commands = new Properties();
         activeChats = new HashSet<>();
-        
-        // Load API key from properties
+
         String apiKey = loadApiKey();
         gptHandler = new KaczmarskiGPTHandler(apiKey);
-        
-        // Load commands
         loadCommands();
     }
 
@@ -56,9 +53,7 @@ public class CommandStorage {
     public void executeCommand(KaczmarskiBot bot, String message, long chatId) throws TelegramApiException {
         System.out.println("Received message: " + message + " from chat: " + chatId); // Debug log
 
-        // Check if chat is active
         if (activeChats.contains(chatId)) {
-            // Handle /end command
             if ("/end".equalsIgnoreCase(message.trim())) {
                 activeChats.remove(chatId);
                 gptHandler.endConversation(chatId);
@@ -67,7 +62,6 @@ public class CommandStorage {
                 return;
             }
 
-            // Process message through GPT
             try {
                 String response = gptHandler.processMessage(chatId, message);
                 bot.sendTextMessage(chatId, response);
@@ -79,15 +73,13 @@ public class CommandStorage {
             return;
         }
 
-        // Handle /bot command to start conversation
         if ("/bot".equalsIgnoreCase(message.trim())) {
             activeChats.add(chatId);
             bot.sendTextMessage(chatId, "Witaj! Jestem Jacek Kaczmarski. O czym chcesz porozmawiać? (Napisz /end aby zakończyć rozmowę)");
-            System.out.println("Chat started for: " + chatId); // Debug log
+            System.out.println("Chat started for: " + chatId);
             return;
         }
 
-        // Handle other commands
         String action = commands.getProperty(message);
         if (action != null) {
             String[] actions = action.split(";");
