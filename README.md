@@ -102,7 +102,7 @@ src/main/resources/keys.properties
 
 ## License
 
-[Your chosen license]
+ GNU General Public License (GPL)
 
 ## Acknowledgments
 
