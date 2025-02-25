@@ -1,5 +1,6 @@
 # Kaczmarski Bot
 
+This is a work in progress project, but feel free to contribute.
 A Telegram bot that emulates Jacek Kaczmarski using GPT-4 (possible to change the model!) allowing users to have conversations with an AI version of the famous Polish bard. The bot responds in Polish, maintaining Kaczmarski's characteristic style and deep knowledge of history, literature, and art.
 
 ## Features
